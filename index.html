@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside the S&amp;P 500 — 10 Years of Market Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14213d; --muted: #5c6577; --paper: #fbfaf7; --card: #ffffff;
+    --line: #e6e2d9; --accent: #1f6f5c; --accent-soft: #e3f1ec; --red: #b5452f;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink);
+         font: 17px/1.65 Inter, system-ui, -apple-system, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+  header { background: var(--ink); color: #fff; padding: 72px 0 56px; }
+  header .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: 13px; color: #9fd8c6; font-weight: 600; }
+  h1, h2 { font-family: Fraunces, Georgia, serif; line-height: 1.15; }
+  h1 { font-size: clamp(34px, 6vw, 58px); margin: 12px 0 16px; font-weight: 800; }
+  header p { max-width: 680px; color: #d6dbe6; font-size: 19px; margin: 0; }
+  header .meta { margin-top: 26px; font-size: 14px; color: #a8b0c2; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: -34px auto 0; position: relative; }
+  .stat { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: 0 6px 18px rgba(20,33,61,.07); }
+  .stat b { display: block; font-family: Fraunces, Georgia, serif; font-size: 34px; color: var(--accent); line-height: 1.1; }
+  .stat span { font-size: 14px; color: var(--muted); }
+  section.insight { padding: 56px 0 8px; border-bottom: 1px solid var(--line); }
+  .num { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 13px;
+         padding: 3px 10px; border-radius: 99px; letter-spacing: .05em; }
+  h2 { font-size: clamp(25px, 3.6vw, 34px); margin: 12px 0 14px; }
+  .insight p { max-width: 760px; margin: 0 0 14px; }
+  figure { margin: 26px 0 30px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 6px; }
+  figcaption { font-size: 14px; color: var(--muted); padding: 10px 4px 0; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .two figure { margin: 0 0 30px; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+  table { border-collapse: collapse; margin: 6px 0 18px; font-size: 15px; }
+  td, th { padding: 7px 14px; border-bottom: 1px solid var(--line); text-align: left; }
+  th { color: var(--muted); font-weight: 600; }
+  .neg { color: var(--red); font-weight: 600; } .pos { color: var(--accent); font-weight: 600; }
+  .note { background: #fff8e8; border-left: 4px solid #e0a526; padding: 14px 18px; border-radius: 6px; font-size: 15px; max-width: 760px; }
+  .about { padding: 56px 0 30px; }
+  .about ul { padding-left: 20px; } .about li { margin-bottom: 8px; }
+  footer { background: var(--ink); color: #a8b0c2; padding: 28px 0; font-size: 14px; margin-top: 40px; }
+  a { color: var(--accent); }
+  footer a { color: #9fd8c6; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="kicker">Data Science Midterm Project · Reichman University</div>
+    <h1>Inside the S&amp;P 500</h1>
+    <p>What 10 years of market data reveal about the index most people's savings are invested in: who really drives it, which sectors won, and how often it crashes.</p>
+    <div class="meta">By <strong>Edon Bibbins</strong> · Data: Kaggle “S&amp;P 500 Stocks”, Dec 2014 – Dec 2024</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><b>23</b><span>companies make up half of the index's value</span></div>
+    <div class="stat"><b>10×</b><span>growth of $100 in tech stocks since 2015</span></div>
+    <div class="stat"><b>≈11%</b><span>average yearly price growth of the index</span></div>
+    <div class="stat"><b>5×</b><span>more extreme days than a bell curve predicts</span></div>
+  </div>
+
+  <section class="insight">
+    <span class="num">INSIGHT 1</span>
+    <h2>“500 companies” is really a bet on about 20 giants</h2>
+    <p>The <strong>10 largest companies make up 39%</strong> of the S&amp;P 500, and <strong>just 23 companies make up half</strong> of it. The other 478 share the rest. Technology is only 16% of the companies but <strong>32.5% of the value</strong>.</p>
+    <div class="two">
+      <figure><img src="images/fig05_concentration.png" alt="Cumulative share of the index by company rank"><figcaption>The curve shoots up: a few companies hold most of the value.</figcaption></figure>
+      <figure><img src="images/fig04_sector_share.png" alt="Share of companies vs share of value per sector"><figcaption>Tech's share of value (blue) is double its share of companies (gray).</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="insight">
+    <span class="num">INSIGHT 2</span>
+    <h2>Technology drove the decade; “safe” sectors lagged</h2>
+    <p>$100 invested in our sample of tech stocks in January 2015 grew to <strong>about $1,000</strong>. The same $100 in Consumer Defensive or Utilities only <strong>doubled</strong>. Energy was the only sector to fall to less than half its value, in the March 2020 oil crash.</p>
+    <figure><img src="images/fig13_sector_growth.png" alt="Growth of $100 by sector since 2015"><figcaption>Equal-weighted sector growth, log scale. Based on the 172 companies with price data; inflated by survivorship bias.</figcaption></figure>
+  </section>
+
+  <section class="insight">
+    <span class="num">INSIGHT 3</span>
+    <h2>Strong long-term growth, unpredictable years</h2>
+    <p>The index almost <strong>tripled</strong> in 10 years (2,079 → 5,931), about <strong>11% per year</strong>. 7 of 10 years were positive, but single years ranged from <span class="neg">−20%</span> (2022) to <span class="pos">+29%</span> (2019, 2021). Even 2020, the year of the COVID crash, ended <span class="pos">+15%</span>.</p>
+    <div class="two">
+      <figure><img src="images/fig10_index_trend.png" alt="S&P 500 index level over 10 years"><figcaption>The index from 2015 to 2024.</figcaption></figure>
+      <figure><img src="images/fig11_yearly_returns.png" alt="Yearly returns"><figcaption>Return per calendar year.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="insight">
+    <span class="num">INSIGHT 4</span>
+    <h2>Crashes are more common than a bell curve suggests, and recoveries differ</h2>
+    <p>The market moved more than 3 standard deviations on <strong>36 days</strong>, while a normal distribution predicts about 7. There were <strong>5 drops of more than 10%</strong> in the decade:</p>
+    <table>
+      <tr><th>Crash</th><th>Fall</th><th>Days to bottom</th><th>Days to recover</th></tr>
+      <tr><td>COVID (2020)</td><td class="neg">−34%</td><td>33</td><td>148</td></tr>
+      <tr><td>Inflation &amp; rates (2022)</td><td class="neg">−25%</td><td>282</td><td>464</td></tr>
+      <tr><td>Late 2018</td><td class="neg">−20%</td><td>95</td><td>120</td></tr>
+    </table>
+    <p>A sudden shock recovered fast. A slow decline driven by inflation took more than three times as long.</p>
+    <div class="two">
+      <figure><img src="images/fig12_risk.png" alt="Volatility and drawdowns over time"><figcaption>Volatility spiked to over 80% in March 2020.</figcaption></figure>
+      <figure><img src="images/fig03_daily_returns.png" alt="Distribution of daily returns vs normal curve"><figcaption>Real daily returns have fatter tails than the red bell curve.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="insight">
+    <span class="num">INSIGHT 5</span>
+    <h2>Revenue growth shows up in stock returns</h2>
+    <p>In 2024, the typical stock of a company with <strong>shrinking sales fell 5.6%</strong>, while companies growing <strong>more than 20% rose a median 38.8%</strong>. Sector growth also differs significantly: tech grew faster than consumer staples (t-test, <strong>p = 0.001</strong>).</p>
+    <figure><img src="images/fig09_growth_vs_return.png" alt="Revenue growth vs 2024 stock return"><figcaption>Faster growth, higher returns, though the spread inside each group is large.</figcaption></figure>
+  </section>
+
+  <section class="insight">
+    <span class="num">INSIGHT 6</span>
+    <h2>Value per employee varies 20× between sectors</h2>
+    <p>NVIDIA and Amazon are worth a similar amount, but Amazon has <strong>about 50× more employees</strong>. Real Estate and Energy companies are worth <strong>$9–13M per employee</strong> because they're built on physical assets. Retailers and other consumer companies are worth about <strong>$0.7M per employee</strong>.</p>
+    <figure><img src="images/fig08_cap_vs_employees.png" alt="Market cap vs employees"><figcaption>Bigger companies employ more people, but only loosely.</figcaption></figure>
+  </section>
+
+  <section class="insight">
+    <span class="num">INSIGHT 7</span>
+    <h2>“Best months to invest” don't hold up statistically</h2>
+    <p>November and July look strong and September looks weak. But a statistical test (ANOVA) shows the differences between months are <strong>not significant (p = 0.24)</strong>. With only 10 observations per month, these patterns could easily be chance.</p>
+    <figure><img src="images/fig14_months.png" alt="Average return by month with confidence intervals"><figcaption>Wide confidence intervals: 10 years isn't enough data to prove a “September effect”.</figcaption></figure>
+  </section>
+
+  <div class="about">
+    <h2>About the data</h2>
+    <ul>
+      <li><strong>Source:</strong> <a href="https://www.kaggle.com/datasets/andrewmvd/sp-500-stocks">S&amp;P 500 Stocks (daily updated)</a> on Kaggle: 502 companies, 10 years of the index, daily prices since 2010.</li>
+      <li><strong>Tools:</strong> Python, Pandas and Seaborn in Google Colab.</li>
+    </ul>
+    <p class="note"><strong>Limitations:</strong> Only 172 of 502 companies have price data (≈45% of the index by value). The data includes only <em>current</em> index members (survivorship bias). Returns exclude dividends. Relationships shown are not proof of cause.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">Introduction to Data Science · Digital Innovation, Reichman University · 2026</div>
+</footer>
+
+</body>
+</html>
